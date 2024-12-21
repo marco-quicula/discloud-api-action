@@ -34,6 +34,10 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Validate Input Properties
+      run: ./scripts/validate_input.sh "${{ inputs.command }}"
+      shell: bash
+
     - name: Set up environment variables
       run: |
         echo "DISCLOUD_API_TOKEN=${{ inputs.DISCLOUD_API_TOKEN }}" >> $GITHUB_ENV
@@ -42,16 +46,4 @@ runs:
     - name: Run Status Command
       if: ${{ inputs.command == 'userinfo' }}
       run: ./scripts/userinfo.sh
-      shell: bash
-
-    - name: Handle Unknown Command
-      run: |
-        if [[ "${{ inputs.command }}" != "userinfo" && \
-              "${{ inputs.command }}" != "delete" && \
-              "${{ inputs.command }}" != "status" && \
-              "${{ inputs.command }}" != "upload" && \
-              "${{ inputs.command }}" != "commit" ]]; then
-          echo "[ERROR] Unknown command: ${{ inputs.command }}"
-          exit 1
-        fi
       shell: bash
