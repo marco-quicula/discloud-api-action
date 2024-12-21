@@ -1,6 +1,9 @@
 name: "Discloud API Action"
 description: "GitHub Action to interact with the Discloud API"
 author: "Marco Quiçula <marco.quicula@quicula.com.br>"
+branding:
+  icon: "upload-cloud"
+  color: "green"
 
 inputs:
   discloud_api_token:
