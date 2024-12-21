@@ -1,0 +1,53 @@
+name: "Discloud API Action"
+description: "GitHub Action to interact with the Discloud API"
+author: "Marco Quiçula <marco.quicula@quicula.com.br>"
+
+inputs:
+  discloud_api_token:
+    description: "API token for authentication"
+    required: true
+  command:
+    description: "Command to be executed. Supported commands: userinfo,delete,status,upload,commit"
+    required: true
+  appId:
+    description: "Application ID. Required for the following commands: delete, status, commit. Can contain the value 
+    'all' for the following commands: delete, status"
+    required: false
+  file:
+    description: "File (.zip) to be uploaded. Required for the following commands: upload, commit"
+    required: false
+  actionIfExists:
+    description: "Action to be taken if the application is already active. Required for the following command: upload"
+    required: false
+outputs:
+  http_code:
+    description: "HTTP status code returned by the API or internal handler"
+  response_body:
+    description: "Body of the API response or internal handler"
+  error_message:
+    description: "Error message from API or internal handler"
+  response_source:
+    description: "Indicates whether the response came from the API or was handled internally. Possible values: api, internal"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up environment variables
+      run: |
+        echo "DISCLOUD_API_TOKEN=${{ inputs.DISCLOUD_API_TOKEN }}" >> $GITHUB_ENV
+    - name: Run Status Command
+      if: inputs.command == 'userinfo'
+      run: ./scripts/userinfo.sh
+      shell: bash
+    - name: Handle Unknown Command
+      run: |
+        # Se o comando não for reconhecido
+        if [[ "${{ inputs.command }}" != "userinfo" && \
+              "${{ inputs.command }}" != "delete" && \
+              "${{ inputs.command }}" != "status" && \
+              "${{ inputs.command }}" != "upload" && \
+              "${{ inputs.command }}" != "commit" ]]; then
+          echo "[ERROR] Unknown command: ${{ inputs.command }}"
+          exit 1
+        fi
+      shell: bash
