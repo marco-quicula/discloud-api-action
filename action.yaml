@@ -10,11 +10,10 @@ inputs:
     description: "API token for authentication"
     required: true
   command:
-    description: "Command to be executed. Supported commands: userinfo,delete,status,upload,commit"
+    description: "Command to be executed. Supported commands: userinfo, delete, status, upload, commit"
     required: true
   appId:
-    description: "Application ID. Required for the following commands: delete, status, commit. Can contain the value 
-    'all' for the following commands: delete, status"
+    description: "Application ID. Required for the following commands: delete, status, commit. Can contain the value 'all' for the following commands: delete, status"
     required: false
   file:
     description: "File (.zip) to be uploaded. Required for the following commands: upload, commit"
@@ -38,13 +37,15 @@ runs:
     - name: Set up environment variables
       run: |
         echo "DISCLOUD_API_TOKEN=${{ inputs.DISCLOUD_API_TOKEN }}" >> $GITHUB_ENV
+      shell: bash
+
     - name: Run Status Command
-      if: inputs.command == 'userinfo'
+      if: ${{ inputs.command == 'userinfo' }}
       run: ./scripts/userinfo.sh
       shell: bash
+
     - name: Handle Unknown Command
       run: |
-        # Se o comando não for reconhecido
         if [[ "${{ inputs.command }}" != "userinfo" && \
               "${{ inputs.command }}" != "delete" && \
               "${{ inputs.command }}" != "status" && \
