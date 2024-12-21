@@ -34,11 +34,11 @@ Add the following to your workflow:
 
 ```yaml
 jobs:
-  exemplo:
+  exemplo:https://github.com/marco-quicula/discloud-api-action/blob/main/README.md
     runs-on: ubuntu-latest
     steps:
       - name: Discloud Action Upload
-        uses: marco-quicula/discloud@v1
+        uses: marco-quicula/discloud-api-action@v1
         with:
           # Insert the command according to the command list.
           command: "<command>"
