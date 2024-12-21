@@ -10,10 +10,12 @@ set_github_output() {
 
   if [[ -n "$GITHUB_OUTPUT" ]]; then
     # For modern runners, use the special GitHub file
-    echo "$name=$value" >> "$GITHUB_OUTPUT" 2>/dev/null
+    echo "MODERN: $name=$value"
+    echo "$name=$value" >> "$GITHUB_OUTPUT"
   else
     # For compatibility with older runners
-    echo "::set-output name=$name::$value" > /dev/null
+    echo "OLDER: $name=$value"
+    echo "::set-output name=$name::$value"
   fi
 }
 
