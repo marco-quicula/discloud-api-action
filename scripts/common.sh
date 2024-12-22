@@ -10,8 +10,6 @@ set_github_output() {
 
   echo "Include in $GITHUB_OUTPUT: $name=$value"
   echo "$name=$value" >> "$GITHUB_OUTPUT"
-  # shellcheck disable=SC2016
-  echo "GITHUB_OUTPUT: $(cat '$GITHUB_OUTPUT')"
 }
 
 call_api() {
