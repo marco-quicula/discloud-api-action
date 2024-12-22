@@ -20,6 +20,7 @@ jobs:
         with:
           discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
           command: 'app-status'
+          appId: 'any'
 
       - name: AppStatus - Check Outputs http_code
         run: |
