@@ -1,4 +1,4 @@
-name: Userinfo Command - Development
+name: Userinfo - Development
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  userinfo-command-development:
+  userinfo-develop:
     runs-on: ubuntu-latest
     environment:
       name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
