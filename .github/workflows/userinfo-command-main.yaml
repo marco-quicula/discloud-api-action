@@ -1,4 +1,4 @@
-name: Userinfo Command - Production
+name: Userinfo - Production
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  userinfo-command-main:
+  userinfo-main:
     runs-on: ubuntu-latest
     environment:
       name: ${{ contains(github.ref, 'main') && 'production' || 'other' }}

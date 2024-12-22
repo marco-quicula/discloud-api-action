@@ -60,7 +60,8 @@ Parameter List by Command:
 
 ## Status of the test workflow on protected branches
 
-[![Userinfo Command - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-command-develop.yaml/badge.svg)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-command-develop.yaml)
+| main | develop |
+|------|---------|
 
 ## License
 This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](./LICENSE) file for more details.
