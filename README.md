@@ -60,8 +60,9 @@ Parameter List by Command:
 
 ## Status of the test workflow on protected branches
 
-| main | develop |
-|------|---------|
+| main                                                                                                                                                                                                                                   | develop                                                                                                                                                                                                                                          |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [![Userinfo - Production](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-main.yaml/badge.svg?branch=main)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-main.yaml) | [![Userinfo - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-develop.yaml/badge.svg?branch=develop)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-develop.yaml) |
 
 ## License
 This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](./LICENSE) file for more details.
