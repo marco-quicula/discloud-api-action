@@ -64,6 +64,17 @@ Parameter List by Command:
 |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [![Userinfo - Production](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-main.yaml/badge.svg?branch=main)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-main.yaml) | [![Userinfo - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-develop.yaml/badge.svg?branch=develop)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-develop.yaml) |
 
+## Milestones
+
+| Name                                                                                                       | Version | Estimated Delivery Date |
+|------------------------------------------------------------------------------------------------------------|---------|-------------------------|
+| [First Version Published in Marketplace](https://github.com/marco-quicula/discloud-api-action/milestone/1) | v0.1.0  | December 28, 2024       |
+| [Improved Features & Usability](https://github.com/marco-quicula/discloud-api-action/milestone/2)          | v0.2.0  | January 26, 2025        |
+
+Feel free to contribute by opening issues or submitting pull requests. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+
 ## License
 This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](./LICENSE) file for more details.
 
