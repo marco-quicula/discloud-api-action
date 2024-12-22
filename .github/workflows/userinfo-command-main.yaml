@@ -1,22 +1,22 @@
-name: Userinfo Command - Development
+name: Userinfo Command - Production
 
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:
-  userinfo-command-development:
+  userinfo-command-main:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
-    if: github.ref == 'refs/heads/develop'
+      name: ${{ contains(github.ref, 'main') && 'production' || 'other' }}
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4.2.2
       - name: Userinfo - Discloud API Action - ${{ vars.ENV_NAME }}
         id: userinfo
-        uses: marco-quicula/discloud-api-action@develop
+        uses: marco-quicula/discloud-api-action@main
         with:
           discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
           command: 'userinfo'
