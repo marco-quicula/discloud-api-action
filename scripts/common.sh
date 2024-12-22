@@ -7,16 +7,7 @@ base_url="https://api.discloud.app/v2"
 set_github_output() {
   local name="$1"
   local value="$2"
-
-  if [[ -n "$GITHUB_OUTPUT" ]]; then
-    # For modern runners, use the special GitHub file
-    echo "MODERN: $name=$value"
-    echo "$name=$value" >> "$GITHUB_OUTPUT"
-  else
-    # For compatibility with older runners
-    echo "OLDER: $name=$value"
-    echo "::set-output name=$name::$value"
-  fi
+  echo "$name=$value" >> "$GITHUB_OUTPUT"
 }
 
 call_api() {

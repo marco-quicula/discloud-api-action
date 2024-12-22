@@ -1,5 +1,6 @@
 # Discloud API Action [![image](https://github.com/user-attachments/assets/528238b4-547e-4d9e-953d-78c1df182210)](https://discloud.com)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+![GitHub](https://img.shields.io/github/license/marco-quicula/discloud-api-action)
 
 Automate operations on Discloud with this GitHub Action: manage applications, upload files, and monitor status in streamlined workflows.
 
@@ -57,11 +58,19 @@ Parameter List by Command:
 | **commit**   | appId          | true     | N/A           | N/A              | Application ID.                                          | appId:&nbsp;my-app              |
 |              | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
 
+## Status of the test workflow on protected branches
+
+[![Userinfo Command - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-command-develop.yaml/badge.svg)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/userinfo-command-develop.yaml)
+
 ## License
 This project is licensed under the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See the [LICENSE](./LICENSE) file for more details.
 
+![GitHub](https://img.shields.io/github/license/marco-quicula/discloud-api-action)
+
 ## Code of Conduct
 This project adheres to the [Contributor Covenant](https://www.contributor-covenant.org). You can view the full text in our [Code of Conduct](./CODE_OF_CONDUCT.md).
+
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 ## Acknowledgements
 Special thanks to DisCloud for their amazing API.
