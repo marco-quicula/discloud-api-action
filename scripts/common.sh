@@ -7,8 +7,6 @@ base_url="https://api.discloud.app/v2"
 set_github_output() {
   local name="$1"
   local value="$2"
-
-  echo "Include in $GITHUB_OUTPUT: $name=$value"
   echo "$name=$value" >> "$GITHUB_OUTPUT"
 }
 
