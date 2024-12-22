@@ -1,4 +1,5 @@
-name: Userinfo - Production
+
+name: AppStatus - Production
 
 on:
   push:
@@ -6,52 +7,52 @@ on:
       - main
 
 jobs:
-  userinfo-main:
+  app-status-main:
     runs-on: ubuntu-latest
     environment:
       name: ${{ contains(github.ref, 'main') && 'production' || 'other' }}
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Userinfo - Discloud API Action - ${{ vars.ENV_NAME }}
-        id: userinfo
+      - name: AppStatus - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: app-status
         uses: marco-quicula/discloud-api-action@main
         with:
           discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
-          command: 'userinfo'
+          command: 'app-status'
 
-      - name: Userinfo - Check Outputs http_code
+      - name: AppStatus - Check Outputs http_code
         run: |
-          if [ "${{ steps.userinfo.outputs.http_code }}" -ne 200 ]; then
-            echo "[ERROR] http_code is not 200."
+          if [[ "${{ steps.app-status.outputs.http_code }}" -ne 200 && "${{ steps.app-status.outputs.http_code }}" -ne 404 ]]; then
+            echo "[ERROR] http_code is not 200 or 404."
             exit 1
           fi
           echo "[SUCESS] http_code is valid. http_code=${{ steps.userinfo.outputs.http_code }}"
         shell: bash
 
-      - name: Userinfo - Check Outputs response_body
+      - name: AppStatus - Check Outputs response_body
         run: |
-          if [ -z "${{ steps.userinfo.outputs.response_body }}" ]; then
+          if [ -z "${{ steps.app-status.outputs.response_body }}" ]; then
             echo "[ERROR] response_body is empty."
             exit 1
           fi
           echo "[SUCESS] response_body is not empty."
         shell: bash
 
-      - name: Userinfo - Check Outputs error_message
+      - name: AppStatus - Check Outputs error_message
         run: |
-          if [ -n "${{ steps.userinfo.outputs.error_message }}" ]; then
+          if [ -n "${{ steps.app-status.outputs.error_message }}" ]; then
             echo "[ERROR] error_message is not empty."
             exit 1
           fi
           echo "[ERROR] error_message is not empty."
         shell: bash
 
-      - name: Userinfo - Check Outputs response_source
+      - name: AppStatus - Check Outputs response_source
         run: |
-          if [ "${{ steps.userinfo.outputs.response_source }}" != "api" ]; then
+          if [ "${{ steps.app-status.outputs.response_source }}" != "api" ]; then
             echo "[ERROR] response_source is not 'api'."
             exit 1
           fi
-          echo "[SUCESS] response_source is 'api'. response_source=${{ steps.userinfo.outputs.response_source }}"
+          echo "[SUCESS] response_source is 'api'. response_source=${{ steps.app-status.outputs.response_source }}"
         shell: bash

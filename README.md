@@ -36,27 +36,27 @@ jobs:
 
 GitHub Action to interact with the Discloud API. Supports the following commands:
 
-| Command      | Description                         |
-|--------------|-------------------------------------|
-| **userinfo** | Returns user information.           |
-| **delete**   | Remove an application by ID         |
-| **status**   | Check the status of an application. |
-| **upload**   | Upload a file to Discloud.          |
-| **commit**   | Changes an application              |
+| Command        | Description                         |
+|----------------|-------------------------------------|
+| **userinfo**   | Returns user information.           |
+| **app-status** | Check the status of an application. |
+| **delete**     | Remove an application by ID         |
+| **upload**     | Upload a file to Discloud.          |
+| **commit**     | Changes an application              |
 
 ## Parameter list by command
 
 Parameter List by Command:
 
-| Command      | Parameter      | Required | Default Value | Domain           | Description                                              | Example                         |
-|--------------|----------------|----------|---------------|------------------|----------------------------------------------------------|---------------------------------|
-| **userinfo** | N/A            | N/A      | N/A           | N/A              | N/A                                                      | N/A                             |
-| **delete**   | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **status**   | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **upload**   | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
-|              | actionIfExists | false    | `DELETE`      | `DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;COMMIT      |
-| **commit**   | appId          | true     | N/A           | N/A              | Application ID.                                          | appId:&nbsp;my-app              |
-|              | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
+| Command        | Parameter      | Required | Default Value | Domain           | Description                                              | Example                         |
+|----------------|----------------|----------|---------------|------------------|----------------------------------------------------------|---------------------------------|
+| **userinfo**   | N/A            | N/A      | N/A           | N/A              | N/A                                                      | N/A                             |
+| **app-status** | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **delete**     | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **upload**     | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
+|                | actionIfExists | false    | `DELETE`      | `DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;COMMIT      |
+| **commit**     | appId          | true     | N/A           | N/A              | Application ID.                                          | appId:&nbsp;my-app              |
+|                | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
 
 ## Status of the test workflow on protected branches
 
