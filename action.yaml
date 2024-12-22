@@ -42,7 +42,7 @@ runs:
   using: "composite"
   steps:
     - name: Validate Input Properties
-      run: ./scripts/validate_input.sh "${{ inputs.command }}"
+      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}"
       shell: bash
 
     - name: Set up environment variables
@@ -50,7 +50,7 @@ runs:
         echo "DISCLOUD_API_TOKEN=${{ inputs.DISCLOUD_API_TOKEN }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run Status Command
+    - name: Run userinfo Command
       id: userinfo
       if: ${{ inputs.command == 'userinfo' }}
       run: ./scripts/userinfo.sh
@@ -63,6 +63,21 @@ runs:
         echo "response_body_var=${{ steps.userinfo.outputs.response_body }}" >> $GITHUB_ENV
         echo "error_message_var=${{ steps.userinfo.outputs.error_message }}"  >> $GITHUB_ENV
         echo "response_source_var=${{ steps.userinfo.outputs.response_source }}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Run app-status Command
+      id: app-status
+      if: ${{ inputs.command == 'app-status' }}
+      run: ./scripts/app-status.sh "${{ inputs.appId }}"
+      shell: bash
+
+    - name: Check app-status Outputs
+      if: ${{ inputs.command == 'app-status' }}
+      run: |
+        echo "http_code_var=${{ steps.app-status.outputs.http_code }}" >> $GITHUB_ENV
+        echo "response_body_var=${{ steps.app-status.outputs.response_body }}" >> $GITHUB_ENV
+        echo "error_message_var=${{ steps.app-status.outputs.error_message }}"  >> $GITHUB_ENV
+        echo "response_source_var=${{ steps.app-status.outputs.response_source }}" >> $GITHUB_ENV
       shell: bash
 
     - name: Send Output Values
