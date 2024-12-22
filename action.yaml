@@ -24,12 +24,19 @@ inputs:
 outputs:
   http_code:
     description: "HTTP status code returned by the API or internal handler"
+    value: ${{ steps.userinfo.outputs.http_code }}
+
   response_body:
     description: "Body of the API response or internal handler"
+    value: ${{ steps.userinfo.outputs.response_body }}
+
   error_message:
     description: "Error message from API or internal handler"
+    value: ${{ steps.userinfo.outputs.error_message }}
+
   response_source:
     description: "Indicates whether the response came from the API or was handled internally. Possible values: api, internal"
+    value: ${{ steps.userinfo.outputs.response_source }}
 
 runs:
   using: "composite"
@@ -49,7 +56,7 @@ runs:
       run: ./scripts/userinfo.sh
       shell: bash
 
-    - name: Check Output
+    - name: Check Outputs
       run: |
         echo "http_code=${{ steps.userinfo.outputs.http_code }}"
         echo "response_body=${{ steps.userinfo.outputs.response_body }}"
