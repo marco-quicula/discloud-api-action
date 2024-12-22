@@ -44,6 +44,15 @@ runs:
       shell: bash
 
     - name: Run Status Command
+      id: userinfo
       if: ${{ inputs.command == 'userinfo' }}
       run: ./scripts/userinfo.sh
+      shell: bash
+
+    - name: Check Output
+      run: |
+        echo "http_code=${{ steps.userinfo.outputs.http_code }}"
+        echo "response_body=${{ steps.userinfo.outputs.response_body }}"
+        echo "error_message=${{ steps.userinfo.outputs.error_message }}"
+        echo "response_source=${{ steps.userinfo.outputs.response_source }}"
       shell: bash
