@@ -39,8 +39,8 @@ GitHub Action to interact with the Discloud API. Supports the following commands
 | Command      | Description                         |
 |--------------|-------------------------------------|
 | **userinfo** | Returns user information.           |
-| **delete**   | Remove an application by ID         |
 | **status**   | Check the status of an application. |
+| **delete**   | Remove an application by ID         |
 | **upload**   | Upload a file to Discloud.          |
 | **commit**   | Changes an application              |
 
