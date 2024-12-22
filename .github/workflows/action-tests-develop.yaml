@@ -21,6 +21,10 @@ jobs:
           discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
           command: 'userinfo'
       - run: echo "http_code=${{ steps.userinfo.outputs.http_code }}"
+        shell: bash
       - run: echo "response_body=${{ steps.userinfo.outputs.response_body }}"
+        shell: bash
       - run: echo "error_message=${{ steps.userinfo.outputs.error_message }}"
+        shell: bash
       - run: echo "response_source=${{ steps.userinfo.outputs.response_source }}"
+        shell: bash

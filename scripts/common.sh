@@ -8,15 +8,10 @@ set_github_output() {
   local name="$1"
   local value="$2"
 
-  if [[ -n "$GITHUB_OUTPUT" ]]; then
-    # For modern runners, use the special GitHub file
-    echo "MODERN: $name=$value"
-    echo "$name=$value" >> "$GITHUB_OUTPUT"
-  else
-    # For compatibility with older runners
-    echo "OLDER: $name=$value"
-    echo "::set-output name=$name::$value"
-  fi
+  echo "Include in $GITHUB_OUTPUT: $name=$value"
+  echo "$name=$value" >> "$GITHUB_OUTPUT"
+  # shellcheck disable=SC2016
+  echo "GITHUB_OUTPUT: $(cat '$GITHUB_OUTPUT')"
 }
 
 call_api() {
