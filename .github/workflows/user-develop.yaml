@@ -1,21 +1,21 @@
-name: Userinfo - Production
+name: User - Development
 
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
-  userinfo-main:
+  userinfo-develop:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ contains(github.ref, 'main') && 'production' || 'other' }}
-    if: github.ref == 'refs/heads/main'
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v4.2.2
       - name: Userinfo - Discloud API Action - ${{ vars.ENV_NAME }}
         id: userinfo
-        uses: marco-quicula/discloud-api-action@main
+        uses: marco-quicula/discloud-api-action@develop
         with:
           discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
           command: 'userinfo'
@@ -44,7 +44,7 @@ jobs:
             echo "[ERROR] error_message is not empty."
             exit 1
           fi
-          echo "[ERROR] error_message is not empty."
+          echo "[SUCESS] error_message is empty."
         shell: bash
 
       - name: Userinfo - Check Outputs response_source
