@@ -15,8 +15,9 @@ call_api() {
   local method="${2:-GET}"
   local data="${3:-}"
   local file="${4:-}"  # Path to a file, if necessary
+  local acceptable_codes="${5:-}" # List of acceptable HTTP codes
 
-  # Ensure API token is present
+  # Ensure the API token is present
   if [[ -z "$DISCLOUD_API_TOKEN" ]]; then
     echo "[ERROR] $endpoint: The API token was not provided."
     set_github_output "http_code" "401"
@@ -26,7 +27,7 @@ call_api() {
     return 1
   fi
 
-  # Define headers and payload depending on the type of call
+  # Define headers and payload depending on the type of request
   local curl_args=(
     -s
     -w "%{http_code}"
@@ -36,10 +37,10 @@ call_api() {
   )
 
   if [[ -n "$file" ]]; then
-    # For file uploads, we use multipart/form-data
+    # For file uploads, use multipart/form-data
     curl_args+=(-F "file=@${file}")
   elif [[ -n "$data" ]]; then
-    # For JSON or other content in the body
+    # For JSON or other content in the request body
     curl_args+=(-H "Content-Type: application/json" --data "$data")
   fi
 
@@ -51,23 +52,27 @@ call_api() {
   local http_code="${response: -3}"
   local response_body="${response:0:${#response}-3}"
 
-  # Check for API errors
-  if [[ "$http_code" -ge 400 ]]; then
-    local error_message
-    error_message=$(echo "$response_body" | jq -r '.message // "Unknown error"')
-    echo "[ERROR] $endpoint: API call failed with HTTP Code $http_code - $error_message"
-    set_github_output "http_code" "$http_code"
-    set_github_output "response_body" "$response_body"
-    set_github_output "error_message" "$error_message"
-    set_github_output "response_source" "api"
-    return 1
+  # Check if the HTTP code is in the list of acceptable codes
+  if [[ -n "$acceptable_codes" ]]; then
+    for code in $acceptable_codes; do
+      if [[ "$code" == "$http_code" ]]; then
+        echo "[INFO] $endpoint: API call returned acceptable HTTP Code $http_code"
+        set_github_output "http_code" "$http_code"
+        set_github_output "response_body" "$response_body"
+        set_github_output "error_message" ""
+        set_github_output "response_source" "api"
+        return 0
+      fi
+    done
   fi
 
-  # Success
-  echo "[INFO] $endpoint: API call successful"
+  # If the code is not acceptable, treat it as an error
+  local error_message
+  error_message=$(echo "$response_body" | jq -r '.message // "Unknown error"')
+  echo "[ERROR] $endpoint: API call failed with HTTP Code $http_code - $error_message"
   set_github_output "http_code" "$http_code"
   set_github_output "response_body" "$response_body"
-  set_github_output "error_message" ""
+  set_github_output "error_message" "$error_message"
   set_github_output "response_source" "api"
-  return 0
+  return 1
 }
