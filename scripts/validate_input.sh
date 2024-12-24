@@ -8,9 +8,9 @@ appId=$2   # appId, second argument
 # Check if the command is valid
 if [[ "$command" != "userinfo" && \
       "$command" != "app-status" && \
-      "$command" != "delete" && \
-      "$command" != "upload" && \
-      "$command" != "commit" ]]; then
+      "$command" != "app-delete" && \
+      "$command" != "app-upload" && \
+      "$command" != "app-commit" ]]; then
   echo "[ERROR] Unknown command: $command"
   return 1
 fi

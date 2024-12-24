@@ -28,7 +28,7 @@ jobs:
             echo "[ERROR] http_code is not 200 or 404."
             exit 1
           fi
-          echo "[SUCESS] http_code is valid. http_code=${{ steps.userinfo.outputs.http_code }}"
+          echo "[SUCESS] http_code is valid. http_code=${{ steps.app-status.outputs.http_code }}"
         shell: bash
 
       - name: AppStatus - Check Outputs response_body
