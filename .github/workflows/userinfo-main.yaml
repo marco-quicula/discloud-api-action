@@ -44,7 +44,7 @@ jobs:
             echo "[ERROR] error_message is not empty."
             exit 1
           fi
-          echo "[ERROR] error_message is not empty."
+          echo "[SUCESS] error_message is empty."
         shell: bash
 
       - name: Userinfo - Check Outputs response_source
