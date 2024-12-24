@@ -4,7 +4,7 @@ name: AppDelete - Development
 on:
   workflow_run:
     workflows: ["AppStatus - Development"]
-    types: ["completed"]
+    types: ["requested"]
 
 jobs:
   app-delete-develop:
