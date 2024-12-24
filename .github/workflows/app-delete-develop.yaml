@@ -9,11 +9,11 @@ jobs:
   app-delete-develop:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ contains(github.event.workflow_run.head_branch, 'develop') && 'development' || 'other' }}
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: AppDelete - Discloud API Action - ${{ github.event.workflow_run.head_branch }}
+      - name: AppDelete - Discloud API Action - ${{ vars.ENV_NAME }}
         id: app-delete
         uses: marco-quicula/discloud-api-action@develop
         with:
