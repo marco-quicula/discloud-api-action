@@ -1,10 +1,9 @@
-
 name: AppDelete - Development
 
 on:
   workflow_run:
     workflows: ["AppStatus - Development"]
-    types: ["requested"]
+    types: ["completed"]
 
 jobs:
   app-delete-develop:
@@ -46,7 +45,7 @@ jobs:
             echo "[ERROR] error_message is not empty."
             exit 1
           fi
-          echo "[ERROR] error_message is not empty."
+          echo "[SUCESS] error_message is empty."
         shell: bash
 
       - name: AppDelete - Check Outputs response_source
