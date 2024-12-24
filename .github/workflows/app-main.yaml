@@ -56,3 +56,56 @@ jobs:
           fi
           echo "[SUCESS] response_source is 'api'. response_source=${{ steps.app-status.outputs.response_source }}"
         shell: bash
+
+  app-delete-develop:
+    runs-on: ubuntu-latest
+    needs:
+      - app-status-main
+    environment:
+      name: ${{ contains(github.ref, 'main') && 'production' || 'other' }}
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: AppDelete - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: app-delete
+        uses: marco-quicula/discloud-api-action@main
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'app-delete'
+          appId: 'any'
+
+      - name: AppDelete - Check Outputs http_code
+        run: |
+          if [[ "${{ steps.app-delete.outputs.http_code }}" -ne 200 && "${{ steps.app-delete.outputs.http_code }}" -ne 404 ]]; then
+            echo "[ERROR] http_code is not 200 or 404."
+            exit 1
+          fi
+          echo "[SUCESS] http_code is valid. http_code=${{ steps.app-delete.outputs.http_code }}"
+        shell: bash
+
+      - name: AppDelete - Check Outputs response_body
+        run: |
+          if [ -z "${{ steps.app-delete.outputs.response_body }}" ]; then
+            echo "[ERROR] response_body is empty."
+            exit 1
+          fi
+          echo "[SUCESS] response_body is not empty."
+        shell: bash
+
+      - name: AppDelete - Check Outputs error_message
+        run: |
+          if [ -n "${{ steps.app-delete.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            exit 1
+          fi
+          echo "[SUCESS] error_message is empty."
+        shell: bash
+
+      - name: AppDelete - Check Outputs response_source
+        run: |
+          if [ "${{ steps.app-delete.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'."
+            exit 1
+          fi
+          echo "[SUCESS] response_source is 'api'. response_source=${{ steps.app-delete.outputs.response_source }}"
+        shell: bash
