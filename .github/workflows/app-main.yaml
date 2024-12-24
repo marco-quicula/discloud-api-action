@@ -1,4 +1,4 @@
-name: AppStatus - Production
+name: App - Production
 
 on:
   push:
