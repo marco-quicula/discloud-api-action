@@ -80,6 +80,21 @@ runs:
         echo "response_source_var=${{ steps.app-status.outputs.response_source }}" >> $GITHUB_ENV
       shell: bash
 
+    - name: Run app-delete Command
+      id: app-delete
+      if: ${{ inputs.command == 'app-delete' }}
+      run: ./scripts/app-delete.sh "${{ inputs.appId }}"
+      shell: bash
+
+    - name: Check app-delete Outputs
+      if: ${{ inputs.command == 'app-delete' }}
+      run: |
+        echo "http_code_var=${{ steps.app-delete.outputs.http_code }}" >> $GITHUB_ENV
+        echo "response_body_var=${{ steps.app-delete.outputs.response_body }}" >> $GITHUB_ENV
+        echo "error_message_var=${{ steps.app-delete.outputs.error_message }}"  >> $GITHUB_ENV
+        echo "response_source_var=${{ steps.app-delete.outputs.response_source }}" >> $GITHUB_ENV
+      shell: bash
+
     - name: Send Output Values
       id: send_output
       run: |
