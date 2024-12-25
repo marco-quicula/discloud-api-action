@@ -54,11 +54,8 @@ call_api() {
   local http_code="${response: -3}"
   local response_body="${response:0:${#response}-3}"
 
-  echo "Saída do http_code $http_code e do response_body $response_body"
-
   local response_body_base64
   response_body_base64=$(echo -n "$response_body" | base64 | tr -d '\n' | tr -d '\r')
-  echo "Saída do response_body_base64 $response_body_base64"
 
   # Check if the HTTP code is in the list of acceptable codes
   if [[ -n "$acceptable_codes" ]]; then
