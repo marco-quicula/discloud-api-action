@@ -174,7 +174,7 @@ jobs:
           fi
           
           # Validate response_body
-          response_body='${{ steps.app-delete.outputs.response_body }}'
+          response_body=$(echo "${{ steps.app-delete.outputs.response_body }}" | base64 --decode)
           if [ -z '$response_body' ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
@@ -249,14 +249,15 @@ jobs:
           fi
 
           # Validate response_body
-          if [ -z "${{ steps.upload-zip.outputs.response_body }}" ]; then
+          response_body=$(echo "${{ steps.upload-zip.outputs.response_body }}" | base64 --decode)
+          if [ -z '$response_body' ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
           
             # Validate "status" field in response_body
-            status=$(echo "${{ steps.upload-zip.outputs.response_body }}" | jq -r '.status')
+            status=$(echo '$response_body' | jq -r '.status')
             if [ "$status" != "ok" ]; then
               echo "[ERROR] 'status' in response_body is not 'ok'. Actual status: $status"
               errors=$((errors+1))
@@ -318,16 +319,17 @@ jobs:
           else
             echo "[SUCCESS] http_code is valid. http_code=${{ steps.upload-zip.outputs.http_code }}"
           fi
-
+          
           # Validate response_body
-          if [ -z "${{ steps.upload-zip.outputs.response_body }}" ]; then
+          response_body=$(echo "${{ steps.upload-zip.outputs.response_body }}" | base64 --decode)
+          if [ -z '$response_body' ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
           
             # Validate "status" field in response_body
-            status=$(echo "${{ steps.upload-zip.outputs.response_body }}" | jq -r '.status')
+            status=$(echo '$response_body' | jq -r '.status')
             if [ "$status" != "error" ]; then
               echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
               errors=$((errors+1))
@@ -335,7 +337,7 @@ jobs:
               echo "[SUCCESS] 'status' in response_body is 'error'."
             fi
           fi
-
+          
           # Validate error_message
           if [ -n "${{ steps.upload-zip.outputs.error_message }}" ]; then
             echo "[ERROR] error_message is not empty."

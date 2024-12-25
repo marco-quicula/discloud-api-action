@@ -52,13 +52,16 @@ call_api() {
   local http_code="${response: -3}"
   local response_body="${response:0:${#response}-3}"
 
+  local response_body_base64
+  response_body_base64=$(echo -n "$response_body" | base64)
+   
   # Check if the HTTP code is in the list of acceptable codes
   if [[ -n "$acceptable_codes" ]]; then
     for code in $acceptable_codes; do
       if [[ "$code" == "$http_code" ]]; then
         echo "[INFO] $endpoint: API call returned acceptable HTTP Code $http_code"
         set_github_output "http_code" "$http_code"
-        set_github_output "response_body" "$response_body"
+        set_github_output "response_body" "$response_body_base64"
         set_github_output "error_message" ""
         set_github_output "response_source" "api"
         return 0
@@ -71,7 +74,7 @@ call_api() {
   error_message=$(echo "$response_body" | jq -r '.message // "Unknown error"')
   echo "[ERROR] $endpoint: API call failed with HTTP Code $http_code - $error_message"
   set_github_output "http_code" "$http_code"
-  set_github_output "response_body" "$response_body"
+  set_github_output "response_body" "$response_body_base64"
   set_github_output "error_message" "$error_message"
   set_github_output "response_source" "api"
   return 1
