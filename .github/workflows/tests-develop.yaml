@@ -99,7 +99,7 @@ jobs:
           command: 'app-status'
           appId: '${{ vars.DISCLOUD_APP_ID }}'
 
-      - name: AppStatus - Validate Outputs
+      - name: AppStatus - NotFound - Validate Outputs
         run: |
           errors=0
 
@@ -161,7 +161,7 @@ jobs:
           command: 'app-delete'
           appId: '${{ vars.DISCLOUD_APP_ID }}'
 
-      - name: AppDelete - NOT Found - Validate Outputs
+      - name: AppDelete - NotFound - Validate Outputs
         run: |
           errors=0
 
