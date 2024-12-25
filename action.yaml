@@ -42,7 +42,7 @@ runs:
   using: "composite"
   steps:
     - name: Validate Input Properties
-      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}"
+      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
 
     - name: Set up environment variables
