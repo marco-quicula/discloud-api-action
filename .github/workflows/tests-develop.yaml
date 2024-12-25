@@ -1,0 +1,362 @@
+name: Tests - Development
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  app-preparing-env-develop:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Preparing ENV to tests - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: app-delete
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'app-delete'
+          appId: '${{ vars.DISCLOUD_APP_ID }}'
+
+  userinfo-develop:
+    runs-on: ubuntu-latest
+    needs:
+    - app-preparing-env-develop
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Userinfo - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: userinfo
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'userinfo'
+
+      - name: Userinfo - Validate Outputs
+        run: |
+          errors=0
+
+          # Validate http_code
+          if [ "${{ steps.userinfo.outputs.http_code }}" -ne 200 ]; then
+            echo "[ERROR] http_code is not 200. http_code=${{ steps.userinfo.outputs.http_code }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] http_code is valid. http_code=${{ steps.userinfo.outputs.http_code }}"
+          fi
+
+          # Validate response_body
+          if [ -z "${{ steps.userinfo.outputs.response_body }}" ]; then
+            echo "[ERROR] response_body is empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_body is not empty."
+          fi
+
+          # Validate error_message
+          if [ -n "${{ steps.userinfo.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] error_message is empty."
+          fi
+
+          # Validate response_source
+          if [ "${{ steps.userinfo.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'. response_source=${{ steps.userinfo.outputs.response_source }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_source is 'api'."
+          fi
+          
+          # Exit with error if any validation failed
+          if [ $errors -ne 0 ]; then
+            echo "[FAILURE] Validation failed with $errors error(s)."
+            exit 1
+          fi
+
+          echo "[SUCCESS] All validations passed."
+        shell: bash
+
+  app-status-404-develop:
+    runs-on: ubuntu-latest
+    needs:
+    - app-preparing-env-develop
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: AppStatus - NotFound - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: app-status
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'app-status'
+          appId: '${{ vars.DISCLOUD_APP_ID }}'
+
+      - name: AppStatus - NotFound - Validate Outputs
+        run: |
+          errors=0
+
+          # Validate http_code
+          if [ "${{ steps.app-status.outputs.http_code }}" -ne 404 ]; then
+            echo "[ERROR] http_code is not 404. http_code=${{ steps.app-status.outputs.http_code }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] http_code is valid. http_code=${{ steps.app-status.outputs.http_code }}"
+          fi
+
+          # Validate response_body
+          if [ -z "${{ steps.app-status.outputs.response_body }}" ]; then
+            echo "[ERROR] response_body is empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_body is not empty."
+          fi
+
+          # Validate error_message
+          if [ -n "${{ steps.app-status.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] error_message is empty."
+          fi
+
+          # Validate response_source
+          if [ "${{ steps.app-status.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'. response_source=${{ steps.app-status.outputs.response_source }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_source is 'api'."
+          fi
+          
+          # Exit with error if any validation failed
+          if [ $errors -ne 0 ]; then
+            echo "[FAILURE] Validation failed with $errors error(s)."
+            exit 1
+          fi
+
+          echo "[SUCCESS] All validations passed."
+        shell: bash
+
+  app-delete-404-develop:
+    runs-on: ubuntu-latest
+    needs:
+    - app-preparing-env-develop
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: AppDelete - NotFound - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: app-delete
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'app-delete'
+          appId: '${{ vars.DISCLOUD_APP_ID }}'
+
+      - name: AppDelete - NotFound - Validate Outputs
+        run: |
+          errors=0
+
+          # Validate http_code
+          if [ "${{ steps.app-delete.outputs.http_code }}" -ne 404 ]; then
+            echo "[ERROR] http_code is not 404. http_code=${{ steps.app-delete.outputs.http_code }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] http_code is valid. http_code=${{ steps.app-delete.outputs.http_code }}"
+          fi
+          
+          # Validate response_body
+          response_body='${{ steps.app-delete.outputs.response_body }}'
+          if [ -z '$response_body' ]; then
+            echo "[ERROR] response_body is empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_body is not empty."
+               
+            # Validate "status" field in response_body
+            status=$(echo '$response_body' | jq -r '.status')
+            if [ "$status" != "error" ]; then
+              echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
+              errors=$((errors+1))
+            else
+              echo "[SUCCESS] 'status' in response_body is 'error'."
+            fi
+          fi
+  
+          # Validate error_message
+          if [ -n "${{ steps.app-delete.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] error_message is empty."
+          fi
+
+          # Validate response_source
+          if [ "${{ steps.app-delete.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'. response_source=${{ steps.app-delete.outputs.response_source }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_source is 'api'."
+          fi
+          
+          # Exit with error if any validation failed
+          if [ $errors -ne 0 ]; then
+            echo "[FAILURE] Validation failed with $errors error(s)."
+            exit 1
+          fi
+
+          echo "[SUCCESS] All validations passed."
+        shell:
+          bash
+
+  upload-zip-develop:
+    runs-on: ubuntu-latest
+    needs:
+      - userinfo-develop
+      - app-status-404-develop
+      - app-delete-404-develop
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: UploadZip - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: upload-zip
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'upload-zip'
+          file: '${{ vars.JAVA_APP_ZIP_FILE }}'
+
+      - name: UploadZip - Validate Outputs
+        run: |
+          errors=0
+
+          # Validate http_code
+          if [ "${{ steps.upload-zip.outputs.http_code }}" -ne 200 ]; then
+            echo "[ERROR] http_code is not 200. http_code=${{ steps.upload-zip.outputs.http_code }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] http_code is valid. http_code=${{ steps.upload-zip.outputs.http_code }}"
+          fi
+
+          # Validate response_body
+          if [ -z "${{ steps.upload-zip.outputs.response_body }}" ]; then
+            echo "[ERROR] response_body is empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_body is not empty."
+          
+            # Validate "status" field in response_body
+            status=$(echo "${{ steps.upload-zip.outputs.response_body }}" | jq -r '.status')
+            if [ "$status" != "ok" ]; then
+              echo "[ERROR] 'status' in response_body is not 'ok'. Actual status: $status"
+              errors=$((errors+1))
+            else
+              echo "[SUCCESS] 'status' in response_body is 'ok'."
+            fi
+          fi
+          
+          # Validate error_message
+          if [ -n "${{ steps.upload-zip.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] error_message is empty."
+          fi
+
+          # Validate response_source
+          if [ "${{ steps.upload-zip.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'. response_source=${{ steps.upload-zip.outputs.response_source }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_source is 'api'. "
+          fi
+
+          # Exit with error if any validation failed
+          if [ $errors -ne 0 ]; then
+            echo "[FAILURE] Validation failed with $errors error(s)."
+            exit 1
+          fi
+
+          echo "[SUCCESS] All validations passed."
+        shell: bash
+
+  upload-zip-with-error-develop:
+    runs-on: ubuntu-latest
+    needs:
+      - upload-zip-develop
+    environment:
+      name: ${{ contains(github.ref, 'develop') && 'development' || 'other' }}
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: UploadZip - With Error - Discloud API Action - ${{ vars.ENV_NAME }}
+        id: upload-zip
+        uses: marco-quicula/discloud-api-action@develop
+        with:
+          discloud_api_token: ${{ secrets.DISCLOUD_API_TOKEN }}
+          command: 'upload-zip'
+          file: '${{ vars.JAVA_APP_ZIP_FILE }}'
+
+      - name: UploadZip - With Error - Validate Outputs
+        run: |
+          errors=0
+
+          # Validate http_code
+          if [ "${{ steps.upload-zip.outputs.http_code }}" -ne 200 ]; then
+            echo "[ERROR] http_code is not 200. http_code=${{ steps.upload-zip.outputs.http_code }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] http_code is valid. http_code=${{ steps.upload-zip.outputs.http_code }}"
+          fi
+
+          # Validate response_body
+          if [ -z "${{ steps.upload-zip.outputs.response_body }}" ]; then
+            echo "[ERROR] response_body is empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_body is not empty."
+          
+            # Validate "status" field in response_body
+            status=$(echo "${{ steps.upload-zip.outputs.response_body }}" | jq -r '.status')
+            if [ "$status" != "error" ]; then
+              echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
+              errors=$((errors+1))
+            else
+              echo "[SUCCESS] 'status' in response_body is 'error'."
+            fi
+          fi
+
+          # Validate error_message
+          if [ -n "${{ steps.upload-zip.outputs.error_message }}" ]; then
+            echo "[ERROR] error_message is not empty."
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] error_message is empty."
+          fi
+
+          # Validate response_source
+          if [ "${{ steps.upload-zip.outputs.response_source }}" != "api" ]; then
+            echo "[ERROR] response_source is not 'api'. response_source=${{ steps.upload-zip.outputs.response_source }}"
+            errors=$((errors+1))
+          else
+            echo "[SUCCESS] response_source is 'api'. "
+          fi
+
+          # Exit with error if any validation failed
+          if [ $errors -ne 0 ]; then
+            echo "[FAILURE] Validation failed with $errors error(s)."
+            exit 1
+          fi
+
+          echo "[SUCCESS] All validations passed."
+        shell: bash

@@ -42,7 +42,7 @@ runs:
   using: "composite"
   steps:
     - name: Validate Input Properties
-      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}"
+      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
 
     - name: Set up environment variables
@@ -93,6 +93,21 @@ runs:
         echo "response_body_var=${{ steps.app-delete.outputs.response_body }}" >> $GITHUB_ENV
         echo "error_message_var=${{ steps.app-delete.outputs.error_message }}"  >> $GITHUB_ENV
         echo "response_source_var=${{ steps.app-delete.outputs.response_source }}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Run app-upload-zip Command
+      id: upload-zip
+      if: ${{ inputs.command == 'upload-zip' }}
+      run: ./scripts/upload-zip.sh "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
+      shell: bash
+
+    - name: Check upload-zip Outputs
+      if: ${{ inputs.command == 'upload-zip' }}
+      run: |
+        echo "http_code_var=${{ steps.upload-zip.outputs.http_code }}" >> $GITHUB_ENV
+        echo "response_body_var=${{ steps.upload-zip.outputs.response_body }}" >> $GITHUB_ENV
+        echo "error_message_var=${{ steps.upload-zip.outputs.error_message }}"  >> $GITHUB_ENV
+        echo "response_source_var=${{ steps.upload-zip.outputs.response_source }}" >> $GITHUB_ENV
       shell: bash
 
     - name: Send Output Values
