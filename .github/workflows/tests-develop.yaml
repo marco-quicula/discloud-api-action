@@ -175,14 +175,14 @@ jobs:
           
           # Validate response_body
           response_body=$(echo "${{ steps.app-delete.outputs.response_body }}" | base64 --decode)
-          if [ -z '$response_body' ]; then
+          if [ -z "$response_body" ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
                
             # Validate "status" field in response_body
-            status=$(echo '$response_body' | jq -r '.status')
+            status=$(echo "$response_body" | jq -r ".status")
             if [ "$status" != "error" ]; then
               echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
               errors=$((errors+1))
@@ -250,14 +250,14 @@ jobs:
 
           # Validate response_body
           response_body=$(echo "${{ steps.upload-zip.outputs.response_body }}" | base64 --decode)
-          if [ -z '$response_body' ]; then
+          if [ -z "$response_body" ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
           
             # Validate "status" field in response_body
-            status=$(echo '$response_body' | jq -r '.status')
+            status=$(echo "$response_body" | jq -r ".status")
             if [ "$status" != "ok" ]; then
               echo "[ERROR] 'status' in response_body is not 'ok'. Actual status: $status"
               errors=$((errors+1))
@@ -322,14 +322,14 @@ jobs:
           
           # Validate response_body
           response_body=$(echo "${{ steps.upload-zip.outputs.response_body }}" | base64 --decode)
-          if [ -z '$response_body' ]; then
+          if [ -z "$response_body" ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
           
             # Validate "status" field in response_body
-            status=$(echo '$response_body' | jq -r '.status')
+            status=$(echo "$response_body" | jq -r ".status")
             if [ "$status" != "error" ]; then
               echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
               errors=$((errors+1))
