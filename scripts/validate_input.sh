@@ -14,19 +14,19 @@ if [[ "$command" != "userinfo" && \
       "$command" != "upload-zip" && \
       "$command" != "app-commit" ]]; then
   echo "[ERROR] Unknown command: $command"
-  return 1
+  exit 1
 fi
 
 # Check if appId is provided and not empty when the command is app-status
 if [[ "$command" == "app-status" && ( -z "$appId" || "$appId" == "" ) ]]; then
   echo "[ERROR] The appId must be provided and not be empty for the 'app-status' command"
-  return 1
+  exit 1
 fi
 
 # Check if file is provided and not empty when the command is update-zip
 if [[ "$command" == "upload-zip" && ( -z "$file" || "$file" == "" ) ]]; then
   echo "[ERROR] The file must be provided and not be empty for the 'upload-zip' command"
-  return 1
+  exit 1
 fi
 
 # Check if actionIfExists is valid for upload-zip
@@ -35,5 +35,5 @@ if [[ "$command" == "upload-zip" && "$actionIfExists" != "" && \
       "$actionIfExists" != "DELETE" && \
       "$actionIfExists" != "COMMIT" ]]; then
   echo "[ERROR] Invalid actionIfExists: $actionIfExists. Must be one of ERROR, DELETE, or COMMIT."
-  return 1
+  exit 1
 fi
