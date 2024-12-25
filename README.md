@@ -48,15 +48,15 @@ GitHub Action to interact with the Discloud API. Supports the following commands
 
 Parameter List by Command:
 
-| Command        | Parameter      | Required | Default Value | Domain           | Description                                              | Example                         |
-|----------------|----------------|----------|---------------|------------------|----------------------------------------------------------|---------------------------------|
-| **userinfo**   | N/A            | N/A      | N/A           | N/A              | N/A                                                      | N/A                             |
-| **app-status** | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **app-delete** | appId          | true     | N/A           | N/A              | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **app-upload** | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
-|                | actionIfExists | false    | `DELETE`      | `DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;COMMIT      |
-| **app-commit** | appId          | true     | N/A           | N/A              | Application ID.                                          | appId:&nbsp;my-app              |
-|                | file           | true     | N/A           | N/A              | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
+| Command        | Parameter      | Required | Default Value | Domain                  | Description                                              | Example                         |
+|----------------|----------------|----------|---------------|-------------------------|----------------------------------------------------------|---------------------------------|
+| **userinfo**   | N/A            | N/A      | N/A           | N/A                     | N/A                                                      | N/A                             |
+| **app-status** | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **app-delete** | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **app-upload** | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
+|                | actionIfExists | false    | `DELETE`      | `ERROR\|DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;ERROR       |
+| **app-commit** | appId          | true     | N/A           | N/A                     | Application ID.                                          | appId:&nbsp;my-app              |
+|                | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
 
 ## Status of the test workflow on protected branches
 
