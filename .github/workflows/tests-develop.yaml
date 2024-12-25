@@ -174,14 +174,15 @@ jobs:
           fi
           
           # Validate response_body
-          if [ -z "${{ steps.app-delete.outputs.response_body }}" ]; then
+          response_body='${{ steps.app-delete.outputs.response_body }}'
+          if [ -z '$response_body' ]; then
             echo "[ERROR] response_body is empty."
             errors=$((errors+1))
           else
             echo "[SUCCESS] response_body is not empty."
                
             # Validate "status" field in response_body
-            status=$(echo "${{ steps.app-delete.outputs.response_body }}" | jq -r '.status')
+            status=$(echo '$response_body' | jq -r '.status')
             if [ "$status" != "error" ]; then
               echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
               errors=$((errors+1))
