@@ -48,13 +48,19 @@ call_api() {
   local response
   response=$(curl "${curl_args[@]}")
 
+  echo "Saída do response $response"
+
   # Process the HTTP code and response body
   local http_code="${response: -3}"
   local response_body="${response:0:${#response}-3}"
 
+  echo "Saída do http_code $http_code e do response_body $response_body"
+
   local response_body_base64
   response_body_base64=$(echo -n "$response_body" | base64)
-   
+
+  echo "Saída do response_body_base64 $response_body_base64"
+
   # Check if the HTTP code is in the list of acceptable codes
   if [[ -n "$acceptable_codes" ]]; then
     for code in $acceptable_codes; do
