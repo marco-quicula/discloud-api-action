@@ -59,10 +59,10 @@ runs:
     - name: Check userinfo Outputs
       if: ${{ inputs.command == 'userinfo' }}
       run: |
-        echo "http_code_var=${{ steps.userinfo.outputs.http_code }}" >> $GITHUB_ENV
-        echo "response_body_var=${{ steps.userinfo.outputs.response_body }}" >> $GITHUB_ENV
-        echo "error_message_var=${{ steps.userinfo.outputs.error_message }}"  >> $GITHUB_ENV
-        echo "response_source_var=${{ steps.userinfo.outputs.response_source }}" >> $GITHUB_ENV
+        echo 'http_code_var=${{ steps.userinfo.outputs.http_code }}' >> $GITHUB_ENV
+        echo 'response_body_var=${{ steps.userinfo.outputs.response_body }}' >> $GITHUB_ENV
+        echo 'error_message_var=${{ steps.userinfo.outputs.error_message }}' >> $GITHUB_ENV
+        echo 'response_source_var=${{ steps.userinfo.outputs.response_source }}' >> $GITHUB_ENV
       shell: bash
 
     - name: Run app-status Command
@@ -74,10 +74,10 @@ runs:
     - name: Check app-status Outputs
       if: ${{ inputs.command == 'app-status' }}
       run: |
-        echo "http_code_var=${{ steps.app-status.outputs.http_code }}" >> $GITHUB_ENV
-        echo "response_body_var=${{ steps.app-status.outputs.response_body }}" >> $GITHUB_ENV
-        echo "error_message_var=${{ steps.app-status.outputs.error_message }}"  >> $GITHUB_ENV
-        echo "response_source_var=${{ steps.app-status.outputs.response_source }}" >> $GITHUB_ENV
+        echo 'http_code_var=${{ steps.app-status.outputs.http_code }}' >> $GITHUB_ENV
+        echo 'response_body_var=${{ steps.app-status.outputs.response_body }}' >> $GITHUB_ENV
+        echo 'error_message_var=${{ steps.app-status.outputs.error_message }}' >> $GITHUB_ENV
+        echo 'response_source_var=${{ steps.app-status.outputs.response_source }}' >> $GITHUB_ENV
       shell: bash
 
     - name: Run app-delete Command
@@ -89,10 +89,10 @@ runs:
     - name: Check app-delete Outputs
       if: ${{ inputs.command == 'app-delete' }}
       run: |
-        echo "http_code_var=${{ steps.app-delete.outputs.http_code }}" >> $GITHUB_ENV
-        echo "response_body_var=${{ steps.app-delete.outputs.response_body }}" >> $GITHUB_ENV
-        echo "error_message_var=${{ steps.app-delete.outputs.error_message }}"  >> $GITHUB_ENV
-        echo "response_source_var=${{ steps.app-delete.outputs.response_source }}" >> $GITHUB_ENV
+        echo 'http_code_var=${{ steps.app-delete.outputs.http_code }}' >> $GITHUB_ENV
+        echo 'response_body_var=${{ steps.app-delete.outputs.response_body }}' >> $GITHUB_ENV
+        echo 'error_message_var=${{ steps.app-delete.outputs.error_message }}' >> $GITHUB_ENV
+        echo 'response_source_var=${{ steps.app-delete.outputs.response_source }}' >> $GITHUB_ENV
       shell: bash
 
     - name: Run app-upload-zip Command
@@ -104,17 +104,17 @@ runs:
     - name: Check upload-zip Outputs
       if: ${{ inputs.command == 'upload-zip' }}
       run: |
-        echo "http_code_var=${{ steps.upload-zip.outputs.http_code }}" >> $GITHUB_ENV
-        echo "response_body_var=${{ steps.upload-zip.outputs.response_body }}" >> $GITHUB_ENV
-        echo "error_message_var=${{ steps.upload-zip.outputs.error_message }}"  >> $GITHUB_ENV
-        echo "response_source_var=${{ steps.upload-zip.outputs.response_source }}" >> $GITHUB_ENV
+        echo 'http_code_var=${{ steps.upload-zip.outputs.http_code }}' >> $GITHUB_ENV
+        echo 'response_body_var=${{ steps.upload-zip.outputs.response_body }}' >> $GITHUB_ENV
+        echo 'error_message_var=${{ steps.upload-zip.outputs.error_message }}' >> $GITHUB_ENV
+        echo 'response_source_var=${{ steps.upload-zip.outputs.response_source }}' >> $GITHUB_ENV
       shell: bash
 
     - name: Send Output Values
       id: send_output
       run: |
-        echo "http_code=$http_code_var" >> "$GITHUB_OUTPUT"
-        echo "response_body=$response_body_var" >> "$GITHUB_OUTPUT"
-        echo "error_message=$error_message_var" >> "$GITHUB_OUTPUT"
-        echo "response_source=$response_source_var" >> "$GITHUB_OUTPUT"
+        echo 'http_code=$http_code_var' >> '$GITHUB_OUTPUT'
+        echo 'response_body=$response_body_var' >> '$GITHUB_OUTPUT'
+        echo 'error_message=$error_message_var' >> '$GITHUB_OUTPUT'
+        echo 'response_source=$response_source_var' >> '$GITHUB_OUTPUT'
       shell: bash
