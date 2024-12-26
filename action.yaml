@@ -21,13 +21,14 @@ inputs:
   actionIfExists:
     description: "Action to be taken if the application is already active. Required for the following command: upload"
     required: false
+    default: "ERROR"
 outputs:
   http_code:
     description: "HTTP status code returned by the API or internal handler"
     value: ${{ steps.send_output.outputs.http_code }}
 
   response_body:
-    description: "Body of the API response or internal handler"
+    description: "Body of the API response or internal handler. In base64 format."
     value: ${{ steps.send_output.outputs.response_body }}
 
   error_message:
