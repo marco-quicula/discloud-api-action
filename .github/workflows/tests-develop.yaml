@@ -520,8 +520,8 @@ jobs:
           errors=0
 
           # Validate http_code
-          if [ "${{ steps.app-delete.outputs.http_code }}" -ne 404 ]; then
-            echo "[ERROR] http_code is not 404. http_code=${{ steps.app-delete.outputs.http_code }}"
+          if [ "${{ steps.app-delete.outputs.http_code }}" -ne 200 ]; then
+            echo "[ERROR] http_code is not 200. http_code=${{ steps.app-delete.outputs.http_code }}"
             errors=$((errors+1))
           else
             echo "[SUCCESS] http_code is valid. http_code=${{ steps.app-delete.outputs.http_code }}"
