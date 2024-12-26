@@ -48,8 +48,6 @@ call_api() {
   local response
   response=$(curl "${curl_args[@]}")
 
-  echo "Saída do response $response"
-
   # Process the HTTP code and response body
   http_code="${response: -3}"
   error_message=""

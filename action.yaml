@@ -21,6 +21,7 @@ inputs:
   actionIfExists:
     description: "Action to be taken if the application is already active. Required for the following command: upload"
     required: false
+    default: "ERROR"
 outputs:
   http_code:
     description: "HTTP status code returned by the API or internal handler"
