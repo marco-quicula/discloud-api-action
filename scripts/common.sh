@@ -51,11 +51,11 @@ call_api() {
   echo "Saída do response $response"
 
   # Process the HTTP code and response body
-  local http_code="${response: -3}"
+  http_code="${response: -3}"
+  error_message=""
   local response_body="${response:0:${#response}-3}"
-
-  local response_body_base64
   response_body_base64=$(echo -n "$response_body" | base64 | tr -d '\n' | tr -d '\r')
+  response_source="api"
 
   # Check if the HTTP code is in the list of acceptable codes
   if [[ -n "$acceptable_codes" ]]; then
@@ -65,19 +65,45 @@ call_api() {
         set_github_output "http_code" "$http_code"
         set_github_output "response_body" "$response_body_base64"
         set_github_output "error_message" ""
-        set_github_output "response_source" "api"
+        set_github_output "response_source" "$response_source"
         return 0
       fi
     done
   fi
 
   # If the code is not acceptable, treat it as an error
-  local error_message
   error_message=$(echo "$response_body" | jq -r '.message // "Unknown error"')
   echo "[ERROR] $endpoint: API call failed with HTTP Code $http_code - $error_message"
   set_github_output "http_code" "$http_code"
   set_github_output "response_body" "$response_body_base64"
   set_github_output "error_message" "$error_message"
-  set_github_output "response_source" "api"
+  set_github_output "response_source" "$response_source"
   return 1
+}
+
+get_appId_from_file() {
+  local file=$1 # Zip file name passed as first argument
+  local temp_dir
+  temp_dir=$(mktemp -d) # Create a temporary directory to extract the zip file
+
+  # Extract the discloud.config file from the zip file
+  unzip -p "$file" discloud.config > "$temp_dir/discloud.config"
+
+  # Read the content of the discloud.config file and find the line with ID=value or id=value
+  local id_line
+  id_line=$(grep -i '^id=' "$temp_dir/discloud.config")
+
+  # Extract the value from the line ID=value or id=value (after the equals sign)
+  local id_value
+  id_value=$(echo "$id_line" | cut -d'=' -f2)
+
+  # Get only the first term before the dot
+  local first_term
+  first_term=$(echo "$id_value" | cut -d'.' -f1)
+
+  # Clean up the temporary directory
+  rm -rf "$temp_dir"
+
+  # Return the first term
+  echo "$first_term"
 }
