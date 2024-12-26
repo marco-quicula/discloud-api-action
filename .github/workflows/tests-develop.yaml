@@ -537,14 +537,14 @@ jobs:
 
             # Validate "status" field in response_body
             status=$(echo "$response_body" | jq -r ".status")
-            if [ "$status" != "error" ]; then
-              echo "[ERROR] 'status' in response_body is not 'error'. Actual status: $status"
+            if [ "$status" != "ok" ]; then
+              echo "[ERROR] 'status' in response_body is not 'ok'. Actual status: $status"
               errors=$((errors+1))
             else
-              echo "[SUCCESS] 'status' in response_body is 'error'."
+              echo "[SUCCESS] 'status' in response_body is 'ok'."
             fi
           fi
-
+          
           # Validate error_message
           if [ -n "${{ steps.app-delete.outputs.error_message }}" ]; then
             echo "[ERROR] error_message is not empty."
