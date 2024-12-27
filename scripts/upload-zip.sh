@@ -31,7 +31,7 @@ call_api "/app/$app_id/status" "GET" "" "" "200 404"
 
 # Handle action "COMMIT" if the HTTP status code is 200
 if [[ "$actionIfExists" == "COMMIT" && "$http_code" == "200" ]]; then
-  call_api "/app/$app_id/commit" "POST" "" "$file" "200"
+  call_api "/app/$app_id/commit" "PUT" "" "$file" "200"
 elif [[ "$http_code" == "404" ]]; then
   # Perform upload only if the status is 404
   call_api "/upload" "POST" "" "$file" "200"
