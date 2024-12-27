@@ -80,7 +80,7 @@ This project is licensed under the [Apache License 2.0](https://www.apache.org/l
 ![GitHub](https://img.shields.io/github/license/marco-quicula/discloud-api-action)
 
 ## Code of Conduct
-This project adheres to the [Contributor Covenant](https://www.contributor-covenant.org). You can view the full text in our [Code of Conduct](./CODE_OF_CONDUCT.md).
+This project adheres to the [Contributor Covenant](https://www.contributor-covenant.org). You can view the full text of our **_[Code of Conduct]_** in the specific tab of this project.
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
