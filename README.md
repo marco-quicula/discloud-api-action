@@ -36,34 +36,32 @@ jobs:
 
 GitHub Action to interact with the Discloud API. Supports the following commands:
 
-| Command            | Description                         |
-|--------------------|-------------------------------------|
-| **userinfo**       | Returns user information.           |
-| **app-status**     | Check the status of an application. |
-| **app-delete**     | Remove an application by ID         |
-| **app-upload-zip** | Upload a (.zip) file to Discloud.  |
-| **app-commit**     | Changes an application              |
+| Command          | Description                         |
+|------------------|-------------------------------------|
+| **userinfo**     | Returns user information.           |
+| **app-status**   | Check the status of an application. |
+| **app-delete**   | Remove an application by ID         |
+| **upload-zip**   | Upload a (.zip) file to Discloud.   |
+| **app-commit**   | Changes an application              |
 
 ## Parameter list by command
 
 Parameter List by Command:
 
-| Command            | Parameter      | Required | Default Value | Domain                  | Description                                              | Example                         |
-|--------------------|----------------|----------|---------------|-------------------------|----------------------------------------------------------|---------------------------------|
-| **userinfo**       | N/A            | N/A      | N/A           | N/A                     | N/A                                                      | N/A                             |
-| **app-status**     | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **app-delete**     | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
-| **app-upload-zip** | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
-|                    | actionIfExists | false    | `ERROR`       | `ERROR\|DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;DELETE      |
-| **app-commit**     | appId          | true     | N/A           | N/A                     | Application ID.                                          | appId:&nbsp;my-app              |
-|                    | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
+| Command          | Parameter      | Required | Default Value | Domain                  | Description                                              | Example                         |
+|------------------|----------------|----------|---------------|-------------------------|----------------------------------------------------------|---------------------------------|
+| **userinfo**     | N/A            | N/A      | N/A           | N/A                     | N/A                                                      | N/A                             |
+| **app-status**   | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **app-delete**   | appId          | true     | N/A           | N/A                     | Application ID or `all` for all apps.                    | appId:&nbsp;my-app              |
+| **upload-zip**   | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;"./path/to/file.zip" |
+|                  | actionIfExists | false    | `ERROR`       | `ERROR\|DELETE\|COMMIT` | Action to be taken if the application is already active. | actionIfExist:&nbsp;DELETE      |
+| **app-commit**   | file           | true     | N/A           | N/A                     | File (.zip) to be uploaded.                              | file:&nbsp;path/to/file.zip"    |
 
 ## Status of the test workflow on protected branches
 
-| main                                                                                                                                                                                                                          | develop                                                                                                                                                                                                                                 |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [![Tests - Production](https://github.com/marco-quicula/discloud-api-action/actions/workflows/tests-main.yaml/badge.svg?branch=main)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/tests-main.yaml) | [![Tests - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/tests-develop.yaml/badge.svg?branch=develop)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/tests-develop.yaml) |
-
+| main                                                                                                                                                                                                                                  | develop                                                                                                                                                                                                                                   |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [![Tests - Production](https://github.com/marco-quicula/discloud-api-action/actions/workflows/pipeline-tests.yaml/badge.svg?branch=main)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/pipeline-tests.yaml) | [![Tests - Development](https://github.com/marco-quicula/discloud-api-action/actions/workflows/pipeline-tests.yaml/badge.svg?branch=develop)](https://github.com/marco-quicula/discloud-api-action/actions/workflows/pipeline-tests.yaml) |
 
 ## Milestones
 

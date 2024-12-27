@@ -37,3 +37,9 @@ if [[ "$command" == "upload-zip" && "$actionIfExists" != "" && \
   echo "[ERROR] Invalid actionIfExists: $actionIfExists. Must be one of ERROR, DELETE, or COMMIT."
   exit 1
 fi
+
+# Check if file is provided and not empty when the command is app-commit
+if [[ "$command" == "app-commit" && ( -z "$file" || "$file" == "" ) ]]; then
+  echo "[ERROR] The file must be provided and not be empty for the 'app-commit' command"
+  exit 1
+fi
