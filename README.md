@@ -65,10 +65,10 @@ Parameter List by Command:
 
 ## Milestones
 
-| Name                                                                                                       | Version | Estimated Delivery Date |
-|------------------------------------------------------------------------------------------------------------|---------|-------------------------|
-| [First Version Published in Marketplace](https://github.com/marco-quicula/discloud-api-action/milestone/1) | v0.1.0  | December 28, 2024       |
-| [Improved Features & Usability](https://github.com/marco-quicula/discloud-api-action/milestone/2)          | v0.2.0  | January 26, 2025        |
+| Name                                                                                                       | Version | Estimated Delivery Date | Status      | Date of Completion |
+|------------------------------------------------------------------------------------------------------------|---------|-------------------------|-------------|--------------------|
+| [First Version Published in Marketplace](https://github.com/marco-quicula/discloud-api-action/milestone/1) | v0.1.0  | December 28, 2024       | Done        | December 26, 2024  |
+| [Improved Features & Usability](https://github.com/marco-quicula/discloud-api-action/milestone/2)          | v0.2.0  | January 26, 2025        | In-Progress | -                  |
 
 Feel free to contribute by opening issues or submitting pull requests. For major changes, please open an issue first to discuss what you would like to change.
 
