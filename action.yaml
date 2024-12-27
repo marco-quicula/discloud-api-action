@@ -96,7 +96,7 @@ runs:
         echo "response_source_var=${{ steps.app-delete.outputs.response_source }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run app-upload-zip Command
+    - name: Run upload-zip Command
       id: upload-zip
       if: ${{ inputs.command == 'upload-zip' }}
       run: ./scripts/upload-zip.sh "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
@@ -109,6 +109,21 @@ runs:
         echo "response_body_var=${{ steps.upload-zip.outputs.response_body }}" >> $GITHUB_ENV
         echo "error_message_var=${{ steps.upload-zip.outputs.error_message }}"  >> $GITHUB_ENV
         echo "response_source_var=${{ steps.upload-zip.outputs.response_source }}" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Run app-commit Command
+      id: app-commit
+      if: ${{ inputs.command == 'app-commit' }}
+      run: ./scripts/app-commit.sh "${{ inputs.file }}"
+      shell: bash
+
+    - name: Check upload-zip Outputs
+      if: ${{ inputs.command == 'app-commit' }}
+      run: |
+        echo "http_code_var=${{ steps.app-commit.outputs.http_code }}" >> $GITHUB_ENV
+        echo "response_body_var=${{ steps.app-commit.outputs.response_body }}" >> $GITHUB_ENV
+        echo "error_message_var=${{ steps.app-commit.outputs.error_message }}"  >> $GITHUB_ENV
+        echo "response_source_var=${{ steps.app-commit.outputs.response_source }}" >> $GITHUB_ENV
       shell: bash
 
     - name: Send Output Values
