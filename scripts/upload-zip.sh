@@ -16,8 +16,6 @@ fi
 # Get the application ID from the file
 app_id=$(get_appId_from_file "$file")
 
-echo "[INFO] Application ID: $app_id"
-
 # Handle action "DELETE": Delete the application and upload the file
 if [[ "$actionIfExists" == "DELETE" ]]; then
   call_api "/app/$app_id/delete" "DELETE" "" "" "200"
