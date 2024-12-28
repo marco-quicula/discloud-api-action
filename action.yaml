@@ -42,6 +42,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: List files
+      run: ls -R
+
     - name: Validate Input Properties
       run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
