@@ -42,10 +42,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: List files
-      run: ls -R
-      shell: bash
-
     - name: Validate Input Properties
       run: ${{ github.action_path }}/scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
