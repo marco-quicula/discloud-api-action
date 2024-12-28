@@ -44,6 +44,7 @@ runs:
   steps:
     - name: List files
       run: ls -R
+      shell: bash
 
     - name: Validate Input Properties
       run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
