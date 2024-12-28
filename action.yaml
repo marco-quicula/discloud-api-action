@@ -41,14 +41,13 @@ outputs:
 
 runs:
   using: "composite"
-  working-directory: ${{ github.action_path }}
   steps:
     - name: List files
       run: ls -R
       shell: bash
 
     - name: Validate Input Properties
-      run: ./scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
+      run: ${{ github.action_path }}/scripts/validate_input.sh "${{ inputs.command }}" "${{ inputs.appId }}" "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
 
     - name: Set up environment variables
@@ -59,7 +58,7 @@ runs:
     - name: Run userinfo Command
       id: userinfo
       if: ${{ inputs.command == 'userinfo' }}
-      run: ./scripts/userinfo.sh
+      run: ${{ github.action_path }}/scripts/userinfo.sh
       shell: bash
 
     - name: Check userinfo Outputs
@@ -74,7 +73,7 @@ runs:
     - name: Run app-status Command
       id: app-status
       if: ${{ inputs.command == 'app-status' }}
-      run: ./scripts/app-status.sh "${{ inputs.appId }}"
+      run: ${{ github.action_path }}/scripts/app-status.sh "${{ inputs.appId }}"
       shell: bash
 
     - name: Check app-status Outputs
@@ -89,7 +88,7 @@ runs:
     - name: Run app-delete Command
       id: app-delete
       if: ${{ inputs.command == 'app-delete' }}
-      run: ./scripts/app-delete.sh "${{ inputs.appId }}"
+      run: ${{ github.action_path }}/scripts/app-delete.sh "${{ inputs.appId }}"
       shell: bash
 
     - name: Check app-delete Outputs
@@ -104,7 +103,7 @@ runs:
     - name: Run upload-zip Command
       id: upload-zip
       if: ${{ inputs.command == 'upload-zip' }}
-      run: ./scripts/upload-zip.sh "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
+      run: ${{ github.action_path }}/scripts/upload-zip.sh "${{ inputs.file }}" "${{ inputs.actionIfExists }}"
       shell: bash
 
     - name: Check upload-zip Outputs
@@ -119,7 +118,7 @@ runs:
     - name: Run app-commit Command
       id: app-commit
       if: ${{ inputs.command == 'app-commit' }}
-      run: ./scripts/app-commit.sh "${{ inputs.file }}"
+      run: ${{ github.action_path }}/scripts/app-commit.sh "${{ inputs.file }}"
       shell: bash
 
     - name: Check upload-zip Outputs
